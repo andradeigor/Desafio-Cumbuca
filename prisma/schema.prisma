@@ -12,11 +12,20 @@ datasource db {
 
 model User {
   id        String      @id @default(uuid())
-  name      String      
+  name      String
   email     String      @unique
   cpf       String      @unique
   password  String
   saldo     Decimal     @db.Decimal(20,2)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+  token     Token?
+}
+
+model Token{
+  id        String      @id @default(uuid())
+  createdAt DateTime    @default(now())
+  token     String      @unique
+  user      User        @relation(fields: [userId], references: [id])
+  userId    String
 }

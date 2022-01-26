@@ -6,7 +6,7 @@ export default {
     const data: IUserRequest = req.body;
     const NewUser = await UserServices.CreateUser(data);
     NewUser
-      ? res.status(201).send()
+      ? res.status(201).json(NewUser)
       : res.status(400).json({ error: "Email or Cpf Already used" });
   },
 };
