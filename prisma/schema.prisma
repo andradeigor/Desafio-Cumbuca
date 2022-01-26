@@ -13,7 +13,9 @@ datasource db {
 model User {
   id        String      @id @default(uuid())
   name      String      
+  email     String      @unique
   cpf       String      @unique
+  password  String
   saldo     Decimal     @db.Decimal(20,2)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt

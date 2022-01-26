@@ -1,10 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import express from "express";
 
-const prisma = new PrismaClient();
+const app = express();
 
-const main = async (): Promise<void> => {
-  const newUser = await prisma.user.findMany();
-  console.log(newUser);
-};
+app.use(express.json());
 
-main();
+app.listen(3000, () => {
+  console.log("🔥 Hi, I'm running at http://localhost:3000/ 🔥");
+});
