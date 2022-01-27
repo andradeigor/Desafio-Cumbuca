@@ -17,7 +17,9 @@ export default {
   async CreateUserWithBcrypt(data: IUserRequest) {
     data.email = data.email.toLowerCase();
     const hashedPassword = await LibBcrypt.encrypt(data.password);
-    const newUser = await prisma.user.create({ data });
+    const newUser = await prisma.user.create({
+      data: { ...data, password: hashedPassword },
+    });
     const userToken = await LibJwt.CreateToken(newUser.id);
     const TokenData = {
       token: userToken,
@@ -25,6 +27,6 @@ export default {
     };
     const UserTokenInDb = await prisma.token.create({ data: TokenData });
     newUser.password = "";
-    return { ...newUser, token: userToken };
+    return { ...newUser, token: UserTokenInDb.token };
   },
 };

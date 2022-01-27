@@ -26,6 +26,6 @@ model Token{
   id        String      @id @default(uuid())
   createdAt DateTime    @default(now())
   token     String      @unique
-  user      User        @relation(fields: [userId], references: [id])
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 }

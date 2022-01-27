@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 export default {
@@ -7,5 +7,12 @@ export default {
       expiresIn: "1h",
     });
     return token;
+  },
+  async DecriptToken(token: string) {
+    const id: string | JwtPayload = jwt.verify(
+      token,
+      process.env.SECRET as string
+    );
+    return id;
   },
 };
