@@ -28,7 +28,11 @@ export default {
       where: { userId: User.id },
     });
     if (!hasToken) {
-      return LibJwt.CreateToken(User.id);
+      const NewToken = await LibJwt.CreateToken(User.id);
+      const NewTokenDb = await prisma.token.create({
+        data: { token: NewToken, userId: User.id },
+      });
+      return NewToken;
     }
     const Token = hasToken.token;
     try {

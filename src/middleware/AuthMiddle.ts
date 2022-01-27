@@ -9,7 +9,7 @@ export default {
       res.locals.user = Id;
       next();
     } catch (_e) {
-      res.status(400).json({ error: "malformed token" });
+      res.status(400).json({ error: "malformed token or expired" });
     }
   },
   async LoginMiddle(req: Request, res: Response, next: NextFunction) {
