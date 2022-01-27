@@ -3,3 +3,8 @@ export interface IToken {
   iat: number;
   exp: number;
 }
+
+export interface ILoginUser {
+  email: string;
+  password: string;
+}
