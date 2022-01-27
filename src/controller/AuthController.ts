@@ -11,7 +11,7 @@ export default {
     const data: ILoginUser = req.body;
     const Token = await AuthService.LoginUser(data);
     Token
-      ? res.status(200).json(Token)
+      ? res.status(200).json({ token: Token })
       : res.status(400).json({ error: "Invalid email or password" });
   },
 };
