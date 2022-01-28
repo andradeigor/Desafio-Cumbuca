@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Users {
   id        String      @id @default(uuid())
   name      String
   email     String      @unique
@@ -19,13 +19,13 @@ model User {
   saldo     Decimal     @db.Decimal(20,2)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
-  token     Token?
+  token     Tokens?
 }
 
-model Token{
+model Tokens{
   id        String      @id @default(uuid())
   createdAt DateTime    @default(now())
   token     String      @unique
-  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      Users        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 }
