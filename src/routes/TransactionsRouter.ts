@@ -1,9 +1,14 @@
 import { Router } from "express";
-import AuthController from "../controller/AuthController";
+import TransactionsController from "../controller/TransactionsController";
 import AuthMiddle from "../middleware/AuthMiddle";
-
+import TransactionMiddle from "../middleware/TransactionMiddle";
 const router = Router();
 
-router.get("/", AuthMiddle.AuthMiddle, AuthController.GetUser);
-router.post("/", AuthMiddle.LoginMiddle, AuthController.LoginUser);
+router.post(
+  "/",
+  AuthMiddle.AuthMiddle,
+  TransactionMiddle.CreateTransactionMiddleware,
+  TransactionsController.CreateTransaction
+);
+router.get("/", AuthMiddle.AuthMiddle, TransactionsController.GetTransactions);
 export default router;

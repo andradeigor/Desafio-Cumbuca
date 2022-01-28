@@ -18,6 +18,6 @@ export default {
     const Transaction = await TransactionService.CreateTransaction(data);
     Transaction
       ? res.status(201).json(Transaction)
-      : res.status(400).json({ error: "insufficient funds or invalid id" });
+      : res.status(400).json({ error: "insufficient funds or invalid ids" });
   },
 };

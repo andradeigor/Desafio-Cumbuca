@@ -15,6 +15,13 @@ export default {
     const User = await prisma.users.findUnique({
       where: { id: data.from },
     });
+    try {
+      const UserFor = await prisma.users.findUnique({
+        where: { id: data.for },
+      });
+    } catch (er) {
+      return null;
+    }
     if (!User) {
       return null;
     }
