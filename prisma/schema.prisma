@@ -20,12 +20,23 @@ model Users {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   token     Tokens?
+  transaction Transactions[]
 }
 
 model Tokens{
   id        String      @id @default(uuid())
   createdAt DateTime    @default(now())
   token     String      @unique
-  user      Users        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      Users       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
+}
+
+model Transactions {
+  id        String      @id @default(uuid())
+  createdAt DateTime    @default(now())
+  user      Users       @relation(fields: [from], references: [id], onDelete: Cascade)
+  from      String      
+  for       String
+  value     Decimal     @db.Decimal(20,2)
+  reversed  Boolean     @default(false)
 }
