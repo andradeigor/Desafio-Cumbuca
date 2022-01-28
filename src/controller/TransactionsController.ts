@@ -20,4 +20,15 @@ export default {
       ? res.status(201).json(Transaction)
       : res.status(400).json({ error: "insufficient funds or invalid ids" });
   },
+  async ReverseTransaction(req: Request, res: Response) {
+    const id: IToken = res.locals.user;
+    const data = req.body;
+    data.id = id.data;
+    const reversed = await TransactionService.ReverseTransaction(data);
+    reversed
+      ? res.status(200).json(reversed)
+      : res
+          .status(400)
+          .json({ error: "Invalid ids or transaction already reversed" });
+  },
 };

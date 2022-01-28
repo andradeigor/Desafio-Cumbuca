@@ -10,5 +10,11 @@ router.post(
   TransactionMiddle.CreateTransactionMiddleware,
   TransactionsController.CreateTransaction
 );
+router.post(
+  "/reverse",
+  AuthMiddle.AuthMiddle,
+  TransactionMiddle.ReverseTransactionMiddleware,
+  TransactionsController.ReverseTransaction
+);
 router.get("/", AuthMiddle.AuthMiddle, TransactionsController.GetTransactions);
 export default router;
