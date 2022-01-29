@@ -4,8 +4,10 @@ import { ILoginUser, IToken } from "../interfaces/Auth";
 export default {
   async GetUser(req: Request, res: Response) {
     const id: IToken = res.locals.user;
-    const User = await AuthService.GetUser(id);
-    res.status(200).json(User);
+    const saldo = await AuthService.GetUser(id);
+    saldo
+      ? res.status(200).json({ saldo })
+      : res.status(400).json({ error: "Invalid id" });
   },
   async LoginUser(req: Request, res: Response) {
     const data: ILoginUser = req.body;

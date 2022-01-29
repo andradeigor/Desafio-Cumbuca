@@ -7,7 +7,7 @@ export default {
   async GetUser(id: IToken) {
     const User = await prisma.users.findUnique({ where: { id: id.data } });
     User!.password = "";
-    return User;
+    return User?.saldo;
   },
 
   async LoginUser(data: ILoginUser) {
