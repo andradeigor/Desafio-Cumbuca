@@ -26,7 +26,7 @@ Rodando o Servidor localmente
  # Copie o .env.example e renomeie como .env
  $ cp .env.example .env
 
- # Substituia as variáveis de ambiente
+ # Substituia as variáveis de ambiente junto com as credênciais para o login no banco de dados
 
  # Transpile os arquivos .ts
  tsc
@@ -55,6 +55,7 @@ Use o arquivo model.txt para se guiar e faça os requests usando programas como:
 ## 💻 Tecnologias
 
 - TypeScript
+- Postgres
 - NodeJS
 - Express
 - Joi
