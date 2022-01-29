@@ -19,9 +19,9 @@ Post: /transaction/: {
 }
 #Dentro do campo for, insira o id do usuário(essa informação é retornada pelo request quando um usuário é criado).
 #insira o token como Bearer Token dentro do seu request.
-
+Get: /transaction/: {} #insira o token como Bearer Token dentro do seu request.
 Post: /transaction/reverse:{
-	"transactionId": "98c194b3-3fd5-4d84-a44b-4aaf1cc22678"#essa informação é retornado pelo request que cria a transação.
+	"transactionId": "98c194b3-3fd5-4d84-a44b-4aaf1cc22678"#essa informação é retornada pelo request que cria a transação.
 }
 #insira o token como Bearer Token dentro do seu request.
 

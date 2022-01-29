@@ -45,6 +45,7 @@ Rodando o Servidor localmente
 - **Get: /auth/:** Verifica o Token enviado e retorna o saldo.
 - **Post: /auth/:** Verifica os dados enviados e cria uma sessão para o usuário, retornando o Token.
 - **Post: /transaction/:** Verifica o Token enviado, verifica os dados e cria uma transação com o valor passado.
+- **Get: /transaction/:** Verifica o Token enviado e retorna todas as transações do usuário.
 - **Post: /transaction/reverse:** Verifica o Token enviado, verifica os dados e a transação. Por fim, caso a transação não tenha sido revertida ainda, reverte.
 - **Post: /transaction/date:** Verifica o Token enviado, verifica os dados e retorna todas as transações(recebidas ou feitas) pelo usuário no período informado.
 

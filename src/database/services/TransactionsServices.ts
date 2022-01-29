@@ -24,37 +24,40 @@ export default {
     const User = await prisma.users.findUnique({
       where: { id: data.from },
     });
-    try {
-      const UserFor = await prisma.users.findUnique({
-        where: { id: data.for },
-      });
-    } catch (er) {
-      return null;
-    }
     if (!User) {
       return null;
     }
     if (User?.saldo.toNumber() < data.value) {
       return null;
     }
-    const Transactions = await prisma.transactions.create({ data });
-    const RemovedValue = await prisma.users.update({
-      where: {
-        id: data.from,
-      },
-      data: {
-        saldo: User.saldo.toNumber() - data.value,
-      },
-    });
-    const AddedValue = await prisma.users.update({
-      where: {
-        id: data.for,
-      },
-      data: {
-        saldo: User.saldo.toNumber() + data.value,
-      },
-    });
-    return Transactions;
+    try {
+      const UserFor = await prisma.users.findUnique({
+        where: { id: data.for },
+      });
+      if (!UserFor) {
+        return null;
+      }
+      const Transactions = await prisma.transactions.create({ data });
+      const RemovedValue = await prisma.users.update({
+        where: {
+          id: data.from,
+        },
+        data: {
+          saldo: User.saldo.toNumber() - data.value,
+        },
+      });
+      const AddedValue = await prisma.users.update({
+        where: {
+          id: data.for,
+        },
+        data: {
+          saldo: UserFor.saldo.toNumber() + data.value,
+        },
+      });
+      return Transactions;
+    } catch (er) {
+      return null;
+    }
   },
   async ReverseTransaction(data: IReverseTransactionData) {
     try {
@@ -103,6 +106,7 @@ export default {
     if (!User) {
       return null;
     }
+    console.log(new Date(data.after), new Date(data.before));
     const transactions = await prisma.transactions.findMany({
       where: {
         AND: [
@@ -112,7 +116,12 @@ export default {
               lt: new Date(data.before),
             },
           },
-          { OR: [{ from: User.id }, { for: User.id }] },
+          {
+            OR: [
+              { from: User.id, reversed: false },
+              { for: User.id, reversed: false },
+            ],
+          },
         ],
       },
     });
