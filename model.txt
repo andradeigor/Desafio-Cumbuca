@@ -1,0 +1,32 @@
+post /user/: {
+	"email":"user@user.com",
+	"name": "John Doe",
+	"password":"123456",
+	"cpf": "19765405502",
+	"saldo": 100.50
+}
+#CPF falso gerado em: https://tiagoporto.github.io/gerador-validador-cpf/
+Post: /auth/: {
+	"email":"user@user.com",
+	"password": "123456",
+}
+#Anote o token retornado.
+Get: /auth/: {} #insira o token como Bearer Token dentro do seu request.
+
+Post: /transaction/: {
+	"for": "be6717be-c5ac-4765-8311-0b3328383cea",
+	"value": 50.46
+}
+#Dentro do campo for, insira o id do usuário(essa informação é retornada pelo request quando um usuário é criado).
+#insira o token como Bearer Token dentro do seu request.
+
+Post: /transaction/reverse:{
+	"transactionId": "98c194b3-3fd5-4d84-a44b-4aaf1cc22678"#essa informação é retornado pelo request que cria a transação.
+}
+#insira o token como Bearer Token dentro do seu request.
+
+- **Post: /transaction/date: {
+	"after": "2022-01-27 06:38:22.056",
+	"before": "2022-01-28 06:38:22.056"
+}
+#insira o token como Bearer Token dentro do seu request.
