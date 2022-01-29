@@ -3,6 +3,7 @@ import { IToken } from "../../interfaces/Auth";
 import { Transactions, Users } from "@prisma/client";
 import {
   ICreateTransactionsData,
+  IDateTransaction,
   IReverseTransactionData,
 } from "../../interfaces/Transactions";
 
@@ -96,5 +97,25 @@ export default {
     } catch (error) {
       return null;
     }
+  },
+  async DateTransaction(data: IDateTransaction) {
+    const User = await prisma.users.findUnique({ where: { id: data.id } });
+    if (!User) {
+      return null;
+    }
+    const transactions = await prisma.transactions.findMany({
+      where: {
+        AND: [
+          {
+            createdAt: {
+              gte: new Date(data.after),
+              lt: new Date(data.before),
+            },
+          },
+          { OR: [{ from: User.id }, { for: User.id }] },
+        ],
+      },
+    });
+    return transactions;
   },
 };

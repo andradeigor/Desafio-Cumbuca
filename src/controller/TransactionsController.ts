@@ -2,6 +2,7 @@ import { Transactions } from "@prisma/client";
 import { Request, Response } from "express";
 import { IToken } from "../interfaces/Auth";
 import TransactionService from "../database/services/TransactionsServices";
+import { IDateTransaction } from "../interfaces/Transactions";
 
 export default {
   async GetTransactions(req: Request, res: Response) {
@@ -30,5 +31,14 @@ export default {
       : res
           .status(400)
           .json({ error: "Invalid ids or transaction already reversed" });
+  },
+  async DateTransaction(req: Request, res: Response) {
+    const data = req.body;
+    const id: IToken = res.locals.user;
+    const DateTransactionData: IDateTransaction = { ...data, id: id.data };
+    const Transactions = await TransactionService.DateTransaction(
+      DateTransactionData
+    );
+    res.status(200).json(Transactions);
   },
 };

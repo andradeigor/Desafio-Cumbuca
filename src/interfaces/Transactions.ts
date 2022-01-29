@@ -8,3 +8,9 @@ export interface IReverseTransactionData {
   transactionId: string;
   id: string;
 }
+
+export interface IDateTransaction {
+  id: string;
+  after: Date;
+  before: Date;
+}
